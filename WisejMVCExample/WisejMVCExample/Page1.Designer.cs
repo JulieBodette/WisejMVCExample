@@ -52,6 +52,7 @@
 			this.button1.Size = new System.Drawing.Size(146, 37);
 			this.button1.TabIndex = 1;
 			this.button1.Text = "Add Student";
+			this.button1.Click += new System.EventHandler(this.button1_Click);
 			// 
 			// label1
 			// 
