@@ -12,6 +12,7 @@ namespace WisejMVCExample
 			InitializeComponent();
 		}
 
+		/// Load data from the database on initial page load.
 		private void Page1_Load(object sender, System.EventArgs e)
 		{
 			studentdata = StudentModel.GetStudents();
@@ -24,8 +25,6 @@ namespace WisejMVCExample
 			//check to make sure that all the text fields have text (ie they are not the empty string)
 			if (txtId.Text != "" && txtEmail.Text != "" && txtName.Text != "" && txtAge.Text != "")
 			{
-				AlertBox.Show("all text boxes have text");
-
 				//read the data from the text fields in the view
 				int id = Int32.Parse(txtId.Text);
 				string email = txtEmail.Text;

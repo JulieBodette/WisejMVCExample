@@ -18,6 +18,7 @@ namespace WisejMVCExample
 		public string Name { get; set; }
 		public int Age { get; set; }
 
+		// Returns a string either indicating that the given StudentModel is valid, or with an error message explaining which part(s) is invalid
 		static public string ValidateData(StudentModel model, string validmessage)
 		{
 			string message = "";
@@ -40,11 +41,13 @@ namespace WisejMVCExample
 
 		}
 
+		// Looks up the database connection string. The database connection string is stored in Web.config.
 		public static string CnnVal(string name)
 		{
 			return ConfigurationManager.ConnectionStrings[name].ConnectionString;
 		}
 
+		// returns a list of StudentModel objects from the database
 		public static List<StudentModel> GetStudents()
 		{
 			using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(StudentModel.CnnVal("Students")))
