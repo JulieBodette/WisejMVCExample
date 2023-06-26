@@ -18,18 +18,20 @@ namespace WisejMVCExample
 			dataGridView1.DataSource = studentdata;
 		}
 
+		/// Add a new student to the database using the values from the text fields.
 		private void button1_Click(object sender, System.EventArgs e)
 		{
-			//read the data from the view
+			//read the data from the text fields in the view
 			int id = Int32.Parse(txtId.Text);
 			string email = txtEmail.Text;
 			string name = txtName.Text;
 			int age = Int32.Parse(txtAge.Text);
 
-
+			// create a StudentModel based on the data in the text fields.
 			StudentModel model = new StudentModel() { Name = name, Id = id, Age = age, Email = email };
-			string errorMessage = model.AddStudent();
-			AlertBox.Show(errorMessage);
+			// Attempt to add the student to the database- show a sucess or failure message.
+			string message = model.AddStudent();
+			AlertBox.Show(message);
 
 			//clear the textboxes
 			txtId.Text = "";
