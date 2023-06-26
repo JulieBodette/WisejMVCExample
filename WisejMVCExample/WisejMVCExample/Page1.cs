@@ -36,7 +36,9 @@ namespace WisejMVCExample
 			txtName.Text = "";
 			txtAge.Text = "";
 
-			//TODO: Refresh the view to show the new data
+			//Get the data from the database and show it in the view so that the new student is seen
+			studentdata = controller.GetStudents();
+			dataGridView1.DataSource = studentdata;
 		}
 	}
 }
