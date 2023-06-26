@@ -21,27 +21,37 @@ namespace WisejMVCExample
 		/// Add a new student to the database using the values from the text fields.
 		private void button1_Click(object sender, System.EventArgs e)
 		{
-			//read the data from the text fields in the view
-			int id = Int32.Parse(txtId.Text);
-			string email = txtEmail.Text;
-			string name = txtName.Text;
-			int age = Int32.Parse(txtAge.Text);
+			//check to make sure that all the text fields have text (ie they are not the empty string)
+			if (txtId.Text != "" && txtEmail.Text != "" && txtName.Text != "" && txtAge.Text != "")
+			{
+				AlertBox.Show("all text boxes have text");
 
-			// create a StudentModel based on the data in the text fields.
-			StudentModel model = new StudentModel() { Name = name, Id = id, Age = age, Email = email };
-			// Attempt to add the student to the database- show a sucess or failure message.
-			string message = model.AddStudent();
-			AlertBox.Show(message);
+				//read the data from the text fields in the view
+				int id = Int32.Parse(txtId.Text);
+				string email = txtEmail.Text;
+				string name = txtName.Text;
+				int age = Int32.Parse(txtAge.Text);
 
-			//clear the textboxes
-			txtId.Text = "";
-			txtEmail.Text = "";
-			txtName.Text = "";
-			txtAge.Text = "";
+				// create a StudentModel based on the data in the text fields.
+				StudentModel model = new StudentModel() { Name = name, Id = id, Age = age, Email = email };
+				// Attempt to add the student to the database- show a sucess or failure message.
+				string message = model.AddStudent();
+				AlertBox.Show(message);
 
-			//Get the data from the database and show it in the view so that the new student is seen
-			studentdata = StudentModel.GetStudents();
-			dataGridView1.DataSource = studentdata;
+				//clear the textboxes
+				txtId.Text = "";
+				txtEmail.Text = "";
+				txtName.Text = "";
+				txtAge.Text = "";
+
+				//Get the data from the database and show it in the view so that the new student is seen
+				studentdata = StudentModel.GetStudents();
+				dataGridView1.DataSource = studentdata;
+			}
+			else //if at least one of the text fields is blank
+			{
+				AlertBox.Show("Please enter values for all fields.");
+			}
 		}
 	}
 }
