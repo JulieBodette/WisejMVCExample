@@ -54,15 +54,16 @@ namespace WisejMVCExample
 			}
 		}
 
+		// Adds the model to the database. Returns a string which contains an error message if the model is invalid.
 		public string AddStudent()
 		{
 			string validMessage = "The data is valid!";
 
 			// ValidateData returns a string with the validation errors. Returns validMessage if the data is valid.
-			string errorMessage = StudentModel.ValidateData(this, validMessage);
+			string message = StudentModel.ValidateData(this, validMessage);
 
 			// if the data in the model is valid, add the student to the database
-			if (errorMessage == validMessage)
+			if (message == validMessage)
 			{
 
 				//add the data to the database
@@ -73,7 +74,7 @@ namespace WisejMVCExample
 				}
 			}
 
-			return errorMessage;
+			return message;
 		}
 	}
 }
