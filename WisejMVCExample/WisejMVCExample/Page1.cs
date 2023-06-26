@@ -7,7 +7,6 @@ namespace WisejMVCExample
 	public partial class Page1 : Page
 	{
 		List<StudentModel> studentdata = new List<StudentModel>();
-		StudentController controller = new StudentController();
 		public Page1()
 		{
 			InitializeComponent();
@@ -15,7 +14,7 @@ namespace WisejMVCExample
 
 		private void Page1_Load(object sender, System.EventArgs e)
 		{
-			studentdata = controller.GetStudents();
+			studentdata = StudentModel.GetStudents();
 			dataGridView1.DataSource = studentdata;
 		}
 
@@ -39,7 +38,7 @@ namespace WisejMVCExample
 			txtAge.Text = "";
 
 			//Get the data from the database and show it in the view so that the new student is seen
-			studentdata = controller.GetStudents();
+			studentdata = StudentModel.GetStudents();
 			dataGridView1.DataSource = studentdata;
 		}
 	}

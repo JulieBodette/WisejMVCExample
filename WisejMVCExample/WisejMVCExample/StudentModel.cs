@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Configuration;
 using System.Data;
+using System.Linq;
 
 namespace WisejMVCExample
 {
@@ -17,7 +18,7 @@ namespace WisejMVCExample
 		public string Name { get; set; }
 		public int Age { get; set; }
 
-		static public string ValidateData(StudentModel model)
+		static public string ValidateData(StudentModel model, string validmessage)
 		{
 			string message = "";
 			ValidationContext context = new ValidationContext(model, null, null);
@@ -33,7 +34,7 @@ namespace WisejMVCExample
 			}
 			else
 			{
-				message += "The data is valid!";
+				message = validmessage;
 			}
 			return message;
 
@@ -44,22 +45,33 @@ namespace WisejMVCExample
 			return ConfigurationManager.ConnectionStrings[name].ConnectionString;
 		}
 
-		public string AddStudent()
+		public static List<StudentModel> GetStudents()
 		{
-			//returns a string with the validation errors
-			string errorMessage = StudentModel.ValidateData(this);
-
-			//To Do: Add code to break here if the data is not valid
-
-			//add the data to the database
-			//StudentModel needs to have the method that interacts with the database itself???
-			//Do I need to move this code?
 			using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(StudentModel.CnnVal("Students")))
 			{
-				connection.Execute("INSERT INTO Students VALUES (@Id, @Email, @Name, @Age)", this);
-				//note: The order and exact case-sensitive text of the values @Id, @Email, @Name, @Age MUST match the database
+				var output = connection.Query<StudentModel>("select * from Students").ToList();
+				return output;
 			}
+		}
 
+		public string AddStudent()
+		{
+			string validMessage = "The data is valid!";
+
+			// ValidateData returns a string with the validation errors. Returns validMessage if the data is valid.
+			string errorMessage = StudentModel.ValidateData(this, validMessage);
+
+			// if the data in the model is valid, add the student to the database
+			if (errorMessage == validMessage)
+			{
+
+				//add the data to the database
+				using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(StudentModel.CnnVal("Students")))
+				{
+					connection.Execute("INSERT INTO Students VALUES (@Id, @Email, @Name, @Age)", this);
+					//note: The order and exact case-sensitive text of the values @Id, @Email, @Name, @Age MUST match the database
+				}
+			}
 
 			return errorMessage;
 		}
