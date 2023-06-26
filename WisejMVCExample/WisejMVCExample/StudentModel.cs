@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using Dapper;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Configuration;
+using System.Data;
 
 namespace WisejMVCExample
 {
@@ -34,6 +37,31 @@ namespace WisejMVCExample
 			}
 			return message;
 
+		}
+
+		public static string CnnVal(string name)
+		{
+			return ConfigurationManager.ConnectionStrings[name].ConnectionString;
+		}
+
+		public string AddStudent()
+		{
+			//returns a string with the validation errors
+			string errorMessage = StudentModel.ValidateData(this);
+
+			//To Do: Add code to break here if the data is not valid
+
+			//add the data to the database
+			//StudentModel needs to have the method that interacts with the database itself???
+			//Do I need to move this code?
+			using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(StudentModel.CnnVal("Students")))
+			{
+				connection.Execute("INSERT INTO Students VALUES (@Id, @Email, @Name, @Age)", this);
+				//note: The order and exact case-sensitive text of the values @Id, @Email, @Name, @Age MUST match the database
+			}
+
+
+			return errorMessage;
 		}
 	}
 }

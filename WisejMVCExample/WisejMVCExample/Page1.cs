@@ -27,7 +27,9 @@ namespace WisejMVCExample
 			string name = txtName.Text;
 			int age = Int32.Parse(txtAge.Text);
 
-			string errorMessage = controller.AddStudent(name, id, age, email);
+
+			StudentModel model = new StudentModel() { Name = name, Id = id, Age = age, Email = email };
+			string errorMessage = model.AddStudent();
 			AlertBox.Show(errorMessage);
 
 			//clear the textboxes
