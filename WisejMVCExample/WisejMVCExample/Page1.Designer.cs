@@ -65,6 +65,7 @@
 			// 
 			// txtId
 			// 
+			this.txtId.InputType.Type = Wisej.Web.TextBoxType.Number;
 			this.txtId.LabelText = "Id";
 			this.txtId.Location = new System.Drawing.Point(740, 53);
 			this.txtId.Name = "txtId";
@@ -89,6 +90,7 @@
 			// 
 			// txtAge
 			// 
+			this.txtAge.InputType.Type = Wisej.Web.TextBoxType.Number;
 			this.txtAge.LabelText = "Age";
 			this.txtAge.Location = new System.Drawing.Point(740, 230);
 			this.txtAge.Name = "txtAge";
@@ -107,7 +109,7 @@
 			this.Controls.Add(this.button1);
 			this.Controls.Add(this.dataGridView1);
 			this.Name = "Page1";
-			this.Size = new System.Drawing.Size(950, 432);
+			this.Size = new System.Drawing.Size(1213, 478);
 			this.Load += new System.EventHandler(this.Page1_Load);
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
 			this.ResumeLayout(false);
